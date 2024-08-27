@@ -1,0 +1,58 @@
+		.clk_i			( ce_16 ),
+		.reset_i			( reset ),
+ 
+ 
+		.sd_lba			( sd_lba ), 
+		.sd_rd			( sd_rd ),
+		.sd_wr			( sd_wr ),
+
+		.sd_ack			( sd_ack ),
+		.sd_buff_addr	( sd_buff_addr ), 
+		.sd_buff_dout	( sd_buff_dout ), 
+		.sd_buff_din	( sd_buff_din ),
+		.sd_buff_wr		( sd_buff_wr ),
+
+		
+		.sram_addr_o  	( dsk_addr_s ),
+		.sram_data_i   ( disk_data_s )
+
+
+	input        [31:0] sd_lba,
+	input         [1:0] sd_rd,
+	input         [1:0] sd_wr,
+	output reg          sd_ack,
+	output reg    [8:0] sd_buff_addr,
+	input         [7:0] sd_din,         // (sd_buff_din), [Dato a Grabar a la SD]
+	output reg    [7:0] sd_dout,        // (sd_buff_dout),[Dato leido de la SD] valid on rising edge of sd_dout_strobe
+	output reg          sd_dout_strobe, // (sd_buff_wr),
+	
+	.sd_lba(sd_lba),
+	.sd_rd(sd_rd),
+	.sd_wr(sd_wr),
+	.sd_ack(sd_ack),
+	.sd_buff_addr(sd_buff_addr),
+	.sd_din(sd_buff_din),
+	.sd_dout(sd_buff_dout),
+	.sd_dout_strobe(sd_buff_wr),
+
+DIR: 18:9 = 10 BITS. MAX: 3FF
+DIR:  8:0 =  9 BITS. MAX: 1FF
+
+
+DIR 1EF00 Track Info
+Track 26 Sector C1
+Dir 1F000
+CE 19 4F CD 16 36 41 3E 20 BE C0 23 10 FB C9 CD
+Track 26 Sector C9
+Dir 200F0 
+00 33 FF FF FF FF FF 88 00 00 00 33 FF FB FF FF
+
+DIR 20200 Track Info
+Track 27 Sector C1
+DIR 20300
+00 00 DC 66 66 7C 60 F0 00 00 76 CC CC 7C 0C 1E
+
+
+
+Disco Empieza en 100 (Se restan FF para inicio)
+
